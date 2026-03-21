@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CommonBoard — Community Resources, All in One Place</title>
+  <meta name="description" content="CommonBoard is a free, open platform connecting people to food assistance, housing, shelters, legal aid, emergency info, and more.">
+  <meta property="og:title" content="CommonBoard — Community Resources, All in One Place">
+  <meta property="og:description" content="A free, open platform connecting people to food assistance, housing, shelters, legal aid, emergency info, and more. Coming soon.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://commonboard.org">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=DM+Serif+Display&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --color-bg: #faf8f5;
+      --color-text: #2d2a26;
+      --color-text-soft: #5c574f;
+      --color-accent: #3a7d6e;
+      --color-accent-light: #e8f3f0;
+      --color-warm: #e8a44a;
+      --color-border: #e5e0d8;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, -apple-system, sans-serif;
+      background-color: var(--color-bg);
+      color: var(--color-text);
+      line-height: 1.6;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+    }
+
+    .container {
+      max-width: 640px;
+      width: 100%;
+      text-align: center;
+    }
+
+    .logo-mark {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .logo-mark .squares {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3px;
+      width: 28px;
+      height: 28px;
+    }
+
+    .logo-mark .square {
+      border-radius: 3px;
+    }
+
+    .logo-mark .sq1 { background-color: var(--color-accent); }
+    .logo-mark .sq2 { background-color: var(--color-warm); }
+    .logo-mark .sq3 { background-color: var(--color-warm); opacity: 0.6; }
+    .logo-mark .sq4 { background-color: var(--color-accent); opacity: 0.6; }
+
+    h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3rem;
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: var(--color-text);
+    }
+
+    .tagline {
+      font-size: 1.25rem;
+      color: var(--color-text-soft);
+      margin-bottom: 2.5rem;
+      line-height: 1.5;
+    }
+
+    .divider {
+      width: 60px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--color-accent), var(--color-warm));
+      border-radius: 2px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .categories {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .category {
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      background-color: var(--color-accent-light);
+      color: var(--color-accent);
+      border-radius: 100px;
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .coming-soon {
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border: 2px solid var(--color-border);
+      border-radius: 100px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--color-text-soft);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    .location {
+      margin-top: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--color-text-soft);
+      font-style: italic;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.8rem;
+      color: var(--color-text-soft);
+      opacity: 0.6;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2.25rem;
+      }
+
+      .tagline {
+        font-size: 1.1rem;
+      }
+
+      body {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <div class="logo-mark">
+      <div class="squares">
+        <div class="square sq1"></div>
+        <div class="square sq2"></div>
+        <div class="square sq3"></div>
+        <div class="square sq4"></div>
+      </div>
+    </div>
+
+    <h1>CommonBoard</h1>
+
+    <p class="tagline">
+      Community resources, all in one place. A free, open platform connecting people to the help they need.
+    </p>
+
+    <div class="divider"></div>
+
+    <div class="categories">
+      <span class="category">Food Assistance</span>
+      <span class="category">Housing</span>
+      <span class="category">Shelters</span>
+      <span class="category">Legal Aid</span>
+      <span class="category">Emergency Info</span>
+      <span class="category">Volunteer</span>
+    </div>
+
+    <span class="coming-soon">Coming Soon</span>
+
+    <p class="location">Starting in Fremont County, Colorado</p>
+  </main>
+
+  <footer>
+    &copy; 2026 CommonBoard
+  </footer>
+</body>
+</html>
