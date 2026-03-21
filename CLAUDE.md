@@ -7,8 +7,8 @@ CommonBoard is a public-facing web and mobile app that helps people find communi
 **Domain:** commonboard.org
 **MVP Test Bed:** Fremont County, Colorado (will expand geographically)
 **Frontend:** React Native with Expo (iOS + Android + Web from single codebase)
-**Backend/Database:** TBD — to be determined during planning
-**Hosting:** Cloudflare Pages (landing page + future static assets). Backend hosting TBD.
+**Backend/API/Auth:** Supabase (Postgres, Auth, Realtime, auto-generated REST)
+**Hosting:** Cloudflare Pages (frontend/static assets)
 
 ### Core Principles
 
@@ -16,6 +16,7 @@ CommonBoard is a public-facing web and mobile app that helps people find communi
 - **Org-controlled profiles.** Only verified org reps post content. No public commenting.
 - **No login required to view.** The full directory is publicly accessible.
 - **Privacy-first.** Anonymous user location is never logged server-side. Local user data never leaves their device unless they export it.
+- **Accessible from Day 1.** WCAG 2.1 AA is a foundational requirement, not a polish phase. Every component must be accessible from the moment it is built.
 
 ### User Types (All in MVP)
 
@@ -23,7 +24,7 @@ CommonBoard is a public-facing web and mobile app that helps people find communi
 |------|------|---------|-------------|
 | Anonymous visitor | None | None (client-side session only) | Browse, search, view org profiles, see emergency alerts |
 | Local user | None | localStorage + JSON export/import | Follow orgs, personalized feed, location preference |
-| Registered follower | Account | Server-side | Synced follows/preferences across devices |
+| Registered user | Account | Server-side | Synced follows/preferences across devices |
 | Org representative | Login-gated | Server-side | Manage org profile, post updates, post alerts |
 | Platform admin | Login-gated | Server-side | Seed org data, approve org accounts, system alerts |
 
@@ -168,9 +169,11 @@ Alerts are surfaced above everything else on the home screen when active in the 
 |-----------|--------|-----------|
 | Anonymous | Manual entry (county/city/ZIP), in-session only | Never — client-side only |
 | Local user | Chosen specificity (county → city → ZIP → GPS) | localStorage only, never server |
-| Registered | Standard preference | Server-side, privacy policy |
+| Registered | Chosen specificity (county → city → ZIP → GPS) | Server-side, at user's chosen level only |
 
-**GPS Warning:** When a local user selects GPS-level specificity, display a clear privacy warning.
+**GPS Warning:** When any user selects GPS-level specificity, display a clear privacy warning.
+
+**All user data is sacrosanct.** Even registered users control exactly what level of location specificity is stored.
 
 ---
 
@@ -214,17 +217,24 @@ Alerts are surfaced above everything else on the home screen when active in the 
 
 ---
 
-## Accessibility Requirements
+## Accessibility Requirements (CRITICAL — Day 1)
 
-- WCAG 2.1 AA compliance
-- Keyboard navigation for all interactive elements
-- ARIA labels on icons and interactive elements
-- Color contrast minimum 4.5:1
-- Focus indicators visible
+**Accessibility is a core principle, not a phase.** Every component must be accessible from the moment it is built. Do not write inaccessible code with the intention of fixing it later.
+
+- WCAG 2.1 AA compliance — enforced from the first component
+- Full keyboard navigation for all interactive elements
+- ARIA labels, roles, and live regions where appropriate
+- Color contrast minimum 4.5:1 (large text 3:1)
+- Focus indicators always visible
 - Screen reader compatible
 - No reliance on color alone to convey information
+- Touch targets minimum 44x44px on mobile
+- All images and icons must have meaningful alt text or be marked decorative
+- Form inputs must have associated labels
+- Error messages must be programmatically associated with their fields
+- Accessible on older devices and slower connections
 
-**Note:** Accessibility is especially important for this app — users may be in crisis situations, using older devices, or have disabilities.
+**Every new component must pass accessibility review before merge.** This is part of the PR checklist.
 
 ---
 
@@ -262,7 +272,7 @@ All API errors return consistent format:
 - [ ] Linting passes with no warnings
 - [ ] Tests written and passing
 - [ ] Responsive design tested (mobile + desktop)
-- [ ] Accessibility checked
+- [ ] **Accessibility verified** (WCAG 2.1 AA: keyboard nav, screen reader, contrast, ARIA labels, touch targets)
 - [ ] Feature branch is up to date with main
 - [ ] Commit messages follow conventional format
 - [ ] PR description explains changes clearly
@@ -298,3 +308,13 @@ List all new functionality that can be tested:
 
 ### How to Test
 Provide step-by-step instructions for testing the work with expected outputs and success criteria.
+
+---
+
+## Companion Documents
+
+| Document | Purpose |
+|----------|---------|
+| [docs/PRD.md](docs/PRD.md) | Product requirements, user types, features, data models, phased rollout |
+| [README.md](README.md) | Project overview, tech stack, setup instructions |
+| [TODO.md](TODO.md) | Maintained project to-do list |
