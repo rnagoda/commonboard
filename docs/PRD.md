@@ -400,9 +400,20 @@ title, description
 severity (extreme | severe | moderate | minor)
 urgency (immediate | expected | future)
 affected_area (geo boundary or county/ZIP list)
+category_id (ref) — related resource category
+external_url — link to official source
 active_from, expires_at
 fetched_at
 ```
+
+### Emergency Alert Organization (many-to-many)
+
+```
+alert_id (ref), organization_id (ref)
+role (responding | providing_updates | shelter | etc.)
+```
+
+Links alerts to the organizations involved in the response (e.g., a fire alert links to the Sheriff's Office, fire department, Red Cross).
 
 ### Category Shortcut (Tier 3)
 

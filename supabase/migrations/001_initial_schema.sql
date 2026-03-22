@@ -117,6 +117,8 @@ CREATE TABLE emergency_alerts (
   severity alert_severity NOT NULL,
   urgency alert_urgency NOT NULL,
   affected_area JSONB, -- { counties: [], zips: [], geometry: {} }
+  category_id UUID REFERENCES categories(id) ON DELETE SET NULL, -- related resource category
+  external_url TEXT, -- link to official source (NWS page, county emergency page, etc.)
   active_from TIMESTAMPTZ NOT NULL DEFAULT now(),
   expires_at TIMESTAMPTZ,
   fetched_at TIMESTAMPTZ NOT NULL DEFAULT now(),
@@ -126,6 +128,17 @@ CREATE TABLE emergency_alerts (
 CREATE UNIQUE INDEX idx_emergency_alerts_external ON emergency_alerts(source, external_id)
   WHERE external_id IS NOT NULL;
 CREATE INDEX idx_emergency_alerts_active ON emergency_alerts(active_from, expires_at);
+
+-- Links emergency alerts to responding/updating organizations (many-to-many)
+-- e.g., a fire alert might link to the Sheriff's Office, fire dept, Red Cross
+CREATE TABLE emergency_alert_organizations (
+  alert_id UUID NOT NULL REFERENCES emergency_alerts(id) ON DELETE CASCADE,
+  organization_id UUID NOT NULL REFERENCES organizations(id) ON DELETE CASCADE,
+  role TEXT NOT NULL DEFAULT 'responding', -- responding, providing_updates, shelter, etc.
+  PRIMARY KEY (alert_id, organization_id)
+);
+
+CREATE INDEX idx_alert_orgs_org ON emergency_alert_organizations(organization_id);
 
 -- =============================================================================
 -- CATEGORY SHORTCUTS (Tier 3)
@@ -247,6 +260,13 @@ ALTER TABLE emergency_alerts ENABLE ROW LEVEL SECURITY;
 
 CREATE POLICY "Emergency alerts are publicly readable"
   ON emergency_alerts FOR SELECT
+  USING (true);
+
+-- Emergency alert organizations: publicly readable
+ALTER TABLE emergency_alert_organizations ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Alert organizations are publicly readable"
+  ON emergency_alert_organizations FOR SELECT
   USING (true);
 
 -- Category shortcuts: publicly readable
