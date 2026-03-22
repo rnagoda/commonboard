@@ -11,13 +11,13 @@
 - [x] Set up Cloudflare Pages hosting
 - [x] Deploy landing page
 - [x] Create project documentation (PRD, CLAUDE.md, README, TODO)
-- [ ] Initialize Expo project
+- [x] Initialize Expo project
 - [ ] Set up Supabase project (database, auth)
 - [ ] Configure environment variables and .env.example
-- [ ] Set up TypeScript strict mode and linting
+- [x] Set up TypeScript strict mode and linting
 - [ ] Create database schema (Supabase migrations)
 - [ ] Set up CI (lint + type check on PR)
-- [ ] Set up accessibility tooling (eslint-plugin-react-native-a11y or equivalent)
+- [x] Set up accessibility tooling (eslint-plugin-react-native-a11y)
 - [ ] Establish accessible component patterns (focus management, ARIA, touch targets)
 
 ### Org Data Scraping Tool (reusable for geographic expansion)

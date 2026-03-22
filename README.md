@@ -23,16 +23,22 @@ CommonBoard is a free, open platform connecting people to food assistance, housi
 
 ```
 commonboard/
+├── app/                       # Expo/React Native app (iOS, Android, Web)
+│   ├── assets/                # App icons, splash screen
+│   ├── App.tsx                # Root component
+│   ├── app.json               # Expo config
+│   ├── package.json           # App dependencies and scripts
+│   ├── tsconfig.json          # TypeScript config (strict mode)
+│   └── .eslintrc.json         # ESLint + accessibility rules
 ├── docs/
 │   └── PRD.md                 # Product requirements document
+├── tools/                     # Scraping/data pipeline (future)
 ├── index.html                 # Landing page (deployed to Cloudflare Pages)
 ├── CLAUDE.md                  # Development guide and coding standards
 ├── TODO.md                    # Project to-do list
 ├── README.md                  # This file
 └── .gitignore
 ```
-
-*Project structure will expand as development begins.*
 
 ## Core Principles
 
@@ -57,13 +63,28 @@ commonboard/
 
 ### Prerequisites
 
-- Node.js 18+
-- Expo CLI
+- Node.js 20.19+ (required by React Native / Metro)
+- Expo CLI (`npx expo` — no global install needed)
 - Supabase account (free tier)
 
 ### Getting Started
 
-*Setup instructions will be added once the app scaffold is in place.*
+```bash
+# Install app dependencies
+cd app && npm install
+
+# Start the dev server
+npm start
+
+# Or start for a specific platform
+npm run ios
+npm run android
+npm run web
+
+# Linting and type checking
+npm run lint
+npm run typecheck
+```
 
 ### Git Workflow
 
