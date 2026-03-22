@@ -12,10 +12,10 @@
 - [x] Deploy landing page
 - [x] Create project documentation (PRD, CLAUDE.md, README, TODO)
 - [x] Initialize Expo project
-- [ ] Set up Supabase project (database, auth)
-- [ ] Configure environment variables and .env.example
+- [x] Set up Supabase project (database, auth)
+- [x] Configure environment variables and .env.example
 - [x] Set up TypeScript strict mode and linting
-- [ ] Create database schema (Supabase migrations)
+- [x] Create database schema (Supabase migrations)
 - [ ] Set up CI (lint + type check on PR)
 - [x] Set up accessibility tooling (eslint-plugin-react-native-a11y)
 - [ ] Establish accessible component patterns (focus management, ARIA, touch targets)
