@@ -245,6 +245,7 @@ Alerts surface above all other content. Priority order:
 | Website              | No          |                                   |
 | Languages served     | No          | Defaults to English               |
 | Eligibility criteria | No          | Who qualifies for services        |
+| Target audience      | Recommended | Who this org primarily serves (e.g., women, veterans, families with children, seniors, youth, LGBTQ+, Spanish-speaking). Enables filtering so users find resources meant for them. |
 | Last verified        | Auto        | Timestamp of last profile update  |
 | Status               | Auto        | Active, inactive, pending         |
 | Claimed              | Auto        | Whether an org rep manages it     |
@@ -367,6 +368,7 @@ Accessibility is a core principle, not a polish phase. Every component must be a
 id, name, description, slug
 categories[] (refs)
 services[] (structured list)
+target_audience[] (e.g., women, veterans, families, seniors, youth, LGBTQ+, general)
 address, coordinates (lat/lng), service_area
 hours (structured), timezone
 phone, email, website
@@ -442,7 +444,52 @@ created_at, reviewed_at
 
 ---
 
-## 12. Sustainability Model
+## 12. Org Data Strategy
+
+Building automated tooling for org data collection is a core part of the MVP — not just to seed Fremont County, but to enable efficient geographic expansion.
+
+### Data Sources (priority order)
+
+| Source | Type | What it provides |
+|--------|------|-----------------|
+| **211 Colorado** (211colorado.org) | Primary | Most comprehensive community resource directory in the state. Searchable by county. |
+| **IRS 990 / Tax-exempt org data** | Supplementary | Every registered nonprofit in a county. Free downloadable BMF extract from IRS. |
+| **Google Places API** | Enrichment | Contact info, hours, coordinates, reviews for validation. |
+| **Colorado DOLA** (Dept of Local Affairs) | Supplementary | Housing, homelessness, community services data. |
+| **FEMA / Colorado OEM** | Supplementary | Emergency resources, disaster preparedness orgs. |
+| **County/city government websites** | Manual | Local services, departments, partner org listings. |
+| **United Way local chapters** | Manual | Local resource referrals. |
+| **Faith-based organizations** | Manual | Food pantries, clothing closets, shelter — often not in any database. |
+| **Facebook community groups** | Manual | Resource info shared informally. |
+| **Local newspapers** | Manual | Event listings, org announcements. |
+
+### Automated Scraping Tool
+
+Build a reusable pipeline that can be pointed at a new geographic area:
+
+1. **Scrape** — Pull org data from structured sources (211, IRS, Google Places)
+2. **Normalize** — Map scraped fields to our org schema (name, categories, services, target audience, address, hours, contact, etc.)
+3. **Deduplicate** — Match orgs across sources by name + address similarity
+4. **Enrich** — Fill gaps (coordinates from address, hours from Google, etc.)
+5. **Review** — Output a review file for manual verification before import
+6. **Import** — Load verified data into Supabase
+
+The tool should be designed so that adding a new county is as simple as specifying the geographic target and running the pipeline. Manual research supplements automated collection for orgs that don't appear in any database.
+
+### Data Fields Collected Per Org
+
+All fields from the org schema (Section 7.2), with special attention to:
+- **Target audience** — scraped from service descriptions, eligibility info, or org names where possible (e.g., "Women's Shelter" → target audience: women)
+- **Categories** — mapped from source categorizations to our category list
+- **Services** — extracted and normalized into structured list
+
+### Fremont County Seed (MVP)
+
+Fremont County is the first target. Expected volume: 50–150 orgs across all categories. The automated tool handles the bulk; manual research fills gaps for faith-based orgs, informal community resources, and any orgs not in structured databases.
+
+---
+
+## 13. Sustainability Model
 
 - **Grant funding:** Digital equity, civic tech, emergency preparedness — Colorado has strong options
 - **Municipal/county partnerships:** Government agencies benefit from a well-maintained resource directory
@@ -452,7 +499,7 @@ created_at, reviewed_at
 
 ---
 
-## 13. Phased Rollout
+## 14. Phased Rollout
 
 ### Phase 1 — Foundation
 
@@ -509,7 +556,7 @@ created_at, reviewed_at
 
 ---
 
-## 14. Success Metrics
+## 15. Success Metrics
 
 ### MVP Launch (Fremont County)
 

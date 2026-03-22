@@ -20,11 +20,23 @@
 - [ ] Set up accessibility tooling (eslint-plugin-react-native-a11y or equivalent)
 - [ ] Establish accessible component patterns (focus management, ARIA, touch targets)
 
-### Org Data — Fremont County
-- [ ] Research and compile list of community resource orgs
-- [ ] Build or configure scraping pipeline for org data
-- [ ] Seed initial org data into Supabase
-- [ ] Verify and clean seeded data
+### Org Data Scraping Tool (reusable for geographic expansion)
+- [ ] Build 211 Colorado scraper (primary source)
+- [ ] Build IRS 990 / tax-exempt org data importer
+- [ ] Google Places API enrichment (hours, coordinates, contact)
+- [ ] Data normalization layer (map source fields → our org schema)
+- [ ] Target audience extraction (from descriptions, eligibility, org names)
+- [ ] Category mapping (source categorizations → our categories)
+- [ ] Deduplication logic (name + address similarity matching)
+- [ ] Review file output (for manual verification before import)
+- [ ] Supabase import script
+
+### Org Data — Fremont County (first target)
+- [ ] Run automated pipeline for Fremont County
+- [ ] Manual research: county/city government sites, United Way, faith-based orgs
+- [ ] Manual research: Facebook community groups, local newspaper
+- [ ] Review and verify all seeded data
+- [ ] Fill gaps in target audience, hours, contact info
 
 ### Core Screens
 - [ ] Home screen (category grid, search bar, alert banner placeholder)
